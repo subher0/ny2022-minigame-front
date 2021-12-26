@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import LoggedInRoutes from './pages/LoggedInRoutes';
+import LoginPage from "./pages/login/LoginPage";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [isAuthenticated, setAuthenticated] = useState(localStorage.getItem('name') != null)
+
+    let rootComponent;
+    if (isAuthenticated) {
+        rootComponent = <LoggedInRoutes onExit={() => {
+            localStorage.removeItem('name')
+            localStorage.removeItem('userId')
+            setAuthenticated(false);
+        }}/>
+    } else {
+        rootComponent = <LoginPage onLogin={(name, userId) => {
+            localStorage.setItem('name', name)
+            localStorage.setItem('userId', userId)
+            setAuthenticated(true)
+        }}/>
+    }
+
+    return (
+        <div className="App">
+            {rootComponent}
+        </div>
+    );
 }
 
 export default App;

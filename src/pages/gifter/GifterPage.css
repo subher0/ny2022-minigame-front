@@ -1,0 +1,44 @@
+.GifterPagePadding {
+    height: 50px;
+}
+
+.GifterPageGreeting {
+    background-color: rgba(255,255,255,1);
+    border-radius: 5px;
+    margin: 5px;
+    text-align: center;
+    font-size: 28px;
+    padding: 10px;
+}
+
+.GifterPageItem {
+    background-color: rgba(255,255,255,1);
+    padding: 10px;
+    margin-bottom: 12px;
+    box-shadow: 5px 5px 10px;
+    border-radius: 6px;
+}
+
+.GifterPageItemName {
+    font-size: 22px;
+    margin: 5px;
+    padding: 10px;
+}
+
+.GifterPageItemImage {
+    width: 200px;
+    height: 200px;
+    border-radius: 1000px;
+}
+
+.GifterPageItemUserSelect {
+    margin-top: 5px;
+}
+
+.GifterPageLinkToGifts {
+    background-color: rgba(255,255,255,1);
+    border-radius: 5px;
+    margin: 5px;
+    padding-top: 10px;
+    padding-bottom: 50px;
+}

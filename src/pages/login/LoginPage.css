@@ -1,0 +1,23 @@
+.LoginPagePadding {
+    height: 150px;
+}
+
+.LoginPageGreeting {
+    background-color: rgba(255,255,255,1);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 32px;
+    padding: 10px;
+}
+
+.LoginPageNumbersField {
+    background-color: rgb(255, 255, 255);
+}
+
+.LoginPageTextField {
+    padding: 10px;
+}
+
+.LoginPageButton {
+    width: 80%;
+}
