@@ -26,7 +26,7 @@ function LoginPage(props: LoginPageProps) {
                 </Grid>
                 <Grid container justifyContent='center'>
                     <Grid item xs={8} className='LoginPageTextField'>
-                        <TextField className='LoginPageNumbersField' label='Введи цифры сюда' type='number' onChange={
+                        <TextField className='LoginPageNumbersField' label='Введи кусок говна сюда' onChange={
                             (event) => setId(event.target.value)}/>
                     </Grid>
                 </Grid>

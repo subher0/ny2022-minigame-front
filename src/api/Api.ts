@@ -1,9 +1,18 @@
-const BASE_URL = '/ny2022/api'
-const LOGIN_URL = `${BASE_URL}/gay`
-const GET_ITEMS_URL = `${BASE_URL}/items`
+import {NamedImage, Reward} from "../pages/Models";
+
+const BASE_URL = 'http://planolyth.com:8000'
+const LOGIN_URL = `${BASE_URL}/users`
+const GET_ITEMS_URL = `${BASE_URL}/gaym/items`
+const GET_USERS_URL = `${BASE_URL}/gaym/users`
+const GRANT_URL = `${BASE_URL}/gaym/grant`
+const GET_REWARDS_URL = `${BASE_URL}/gaym/reward`
 
 function makeRequest<T>(url: string, method: string, data?: any): Promise<T> {
-    return fetch(url, {method: method, body: data})
+    const userId = localStorage.getItem("userId")
+    let headers = {}
+    if (userId)
+        headers = {'X-User-ID': userId}
+    return fetch(url, {method: method, body: data, headers: headers})
         .then(response => {
             if (!response.ok) {
                 throw new Error(response.statusText)
@@ -29,20 +38,20 @@ function login(id: string): Promise<string> {
         .then(response => response.name)
 }
 
-function getItems(): Promise<[{name: string, image: string}]> {
-    return get<[{name: string, image: string}]>(`${GET_ITEMS_URL}/${localStorage.getItem('userId')}`)
+function getItems(): Promise<NamedImage[]> {
+    return get<NamedImage[]>(`${GET_ITEMS_URL}`)
 }
 
-function getAvailableUsers(): Promise<[{name: string, image: string}]> {
-    return get<[{name: string, image: string}]>(`${GET_ITEMS_URL}/${localStorage.getItem('userId')}/gays`)
+function getAvailableUsers(): Promise<NamedImage[]> {
+    return get<NamedImage[]>(`${GET_USERS_URL}`)
 }
 
-function getGiftedItems(): Promise<[{name: string, image: string}]> {
-    return get<[{name: string, image: string}]>(`${GET_ITEMS_URL}/${localStorage.getItem('userId')}/granted`)
+function getGiftedItems(): Promise<Reward> {
+    return get<Reward>(`${GET_REWARDS_URL}`)
 }
 
-function grant(name: string, userName: string): Promise<void> {
-    return post(`${GET_ITEMS_URL}/${localStorage.getItem('userId')}/${name}/grant/${userName}`)
+function grant(userId: string, itemId: string): Promise<void> {
+    return post(`${GRANT_URL}`, {user_id: userId, item_id: itemId})
 }
 
 export {login, getItems, getAvailableUsers, getGiftedItems, grant}

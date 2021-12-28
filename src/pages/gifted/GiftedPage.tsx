@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './GiftedPage.css'
 import {Grid} from "@mui/material";
-import {NamedImage} from "../Models";
+import {NamedImage, Reward} from "../Models";
 import {getGiftedItems} from "../../api/Api";
 import {Link} from "react-router-dom";
 
@@ -17,7 +17,7 @@ function GiftItem(props: GiftItemProps) {
                     {props.item.name}
                 </Grid>
                 <Grid item xs={10}>
-                    <img src={`${props.item.image}`} className='GiftedPageItemImage'/>
+                    <img src={`${props.item.link}`} className='GiftedPageItemImage'/>
                 </Grid>
             </Grid>
         </Grid>
@@ -47,14 +47,14 @@ function topLevelComponent(isInitialised: boolean, items: NamedImage[]) {
 function GiftedPage() {
 
     const [isInitialised, setInitialised] = useState(false)
-    const [items, setItems] = useState<NamedImage[]>([] as NamedImage[])
-    const component = topLevelComponent(isInitialised, items)
+    const [reward, setReward] = useState<Reward | undefined>(undefined)
+    const component = topLevelComponent(isInitialised, reward ? reward.items : [])
 
     useEffect(() => {
         if (!isInitialised) {
             getGiftedItems().then((itemsResponse) => {
                 setInitialised(true);
-                setItems(itemsResponse);
+                setReward(itemsResponse);
             })
         }
     })

@@ -24,7 +24,7 @@ function GiftItem(props: GiftItemProps) {
                     {props.item.name}
                 </Grid>
                 <Grid item xs={10}>
-                    <img src={`${props.item.image}`} className='GifterPageItemImage'/>
+                    <img src={`${props.item.link}`} className='GifterPageItemImage'/>
                 </Grid>
                 <Grid item xs={8}>
                     <Grid container justifyContent='center' className='GifterPageItemUserSelect'>
