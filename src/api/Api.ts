@@ -9,10 +9,15 @@ const GET_REWARDS_URL = `${BASE_URL}/gaym/reward`
 
 function makeRequest<T>(url: string, method: string, data?: any): Promise<T> {
     const userId = localStorage.getItem("userId")
-    let headers = {}
+    let headers = {'Content-Type': 'application/json'} as any
     if (userId)
-        headers = {'X-User-ID': userId}
-    return fetch(url, {method: method, body: data, headers: headers})
+        headers['X-User-ID'] = userId
+    let processedData = null
+    if (data) {
+        processedData = JSON.stringify(data)
+        console.log(processedData)
+    }
+    return fetch(url, {method: method, body: processedData, headers: headers})
         .then(response => {
             if (!response.ok) {
                 throw new Error(response.statusText)

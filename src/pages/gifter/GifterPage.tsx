@@ -9,16 +9,16 @@ interface GiftItemProps {
     item: NamedImage
     userList: NamedImage[]
 
-    onValueSelected(userName: string, itemName: string): Promise<void>
+    onValueSelected(userId: string, itemId: string): Promise<void>
 }
 
 function GiftItem(props: GiftItemProps) {
-    let nameItems = props.userList.map((user) => (<MenuItem key={user.name} value={user.name}>{user.name}</MenuItem>))
+    let nameItems = props.userList.map((user) => (<MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>))
 
     const [currentItem, setCurrentItem] = useState<string>('')
 
     return (
-        <Grid item xs={11} lg={4}>
+        <Grid item xs={11} lg={11}>
             <Grid container justifyContent='center' className='GifterPageItem'>
                 <Grid item xs={6} className='GifterPageItemName'>
                     {props.item.name}
@@ -39,7 +39,7 @@ function GiftItem(props: GiftItemProps) {
                                 onChange={(event) => {
                                     setCurrentItem(event.target.value)
                                     if (event.target.value != null)
-                                        props.onValueSelected(event.target.value, props.item.name)
+                                        props.onValueSelected(event.target.value, props.item.id)
                                             .catch(() => setCurrentItem(''))
                                 }}
                             >
@@ -57,9 +57,9 @@ function topLevelComponent(isInitialised: boolean, availableUsers: NamedImage[],
                            items: NamedImage[], setInitialised: Function) {
     let itemComponents = items.map((item) => (<GiftItem key={item.name} item={item}
                                                         userList={availableUsers}
-                                                        onValueSelected={(userName, itemName) => {
+                                                        onValueSelected={(userId, itemId) => {
                                                             setInitialised(false)
-                                                            return grant(itemName, userName)
+                                                            return grant(userId, itemId)
                                                                 .then(response => {
                                                                     return response
                                                                 })
