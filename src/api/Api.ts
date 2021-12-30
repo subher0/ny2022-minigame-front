@@ -22,7 +22,10 @@ function makeRequest<T>(url: string, method: string, data?: any): Promise<T> {
             if (!response.ok) {
                 throw new Error(response.statusText)
             }
-            return response.json() as Promise<T>
+            if (response)
+                return response.json() as Promise<T>
+            else
+                return Promise.resolve({} as T)
         })
         .then(response => {
             console.log(response)
